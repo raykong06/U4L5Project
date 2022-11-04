@@ -70,18 +70,42 @@ public class StringLoops
         int count = 0;
         String lowercaseOrig = origString.toLowerCase();
         String lowercaseSearch = searchString.toLowerCase();
+
+        int searchLength = lowercaseSearch.length();
         int i = 0;
-        int indexOf = 0;
-        while (indexOf != -1)
+        while (i < lowercaseOrig.length() - searchLength + 1)
         {
-            String test = lowercaseOrig.substring(i);
-            indexOf = test.indexOf(lowercaseSearch);
-            if (indexOf != -1)
+            String test = lowercaseOrig.substring(i, i + searchLength);
+            if (test.equals(lowercaseSearch))
             {
                 count++;
             }
-            i = indexOf + 1;
+            i++;
         }
         return count;
+    }
+
+    /* Returns a String with all instances of "searchString" removed from "origString";
+     matches SHOULD be case sensitive (i.e no need to convert to lowercase) */
+    public String removeString(String searchString, String origString)
+    {
+        while (origString.indexOf(searchString) != -1)
+        {
+            int index = origString.indexOf(searchString);
+            origString = origString.substring(0, index) + origString.substring(index + searchString.length(), origString.length());
+        }
+        return origString;
+    }
+
+    /* Returns a String with all instances of "searchChar" in "origString" replaced with
+     "replaceChar"; matches SHOULD be case sensitive. */
+    public String replaceCharacter(String searchChar, String origStr, String replaceChar)
+    {
+        while (origStr.indexOf(searchChar) != -1)
+        {
+            int index = origStr.indexOf(searchChar);
+            origStr = origStr.substring(0, index) + replaceChar + origStr.substring(index + searchChar.length(), origStr.length());
+        }
+        return origStr;
     }
 }
